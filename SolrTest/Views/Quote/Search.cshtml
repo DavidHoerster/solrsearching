@@ -1,0 +1,19 @@
+﻿@model IEnumerable<SolrTest.Models.QuoteHighlight>
+
+@{
+    ViewBag.Title = "Search Results";
+}
+
+@Html.ActionLink("Back to List", "Index")
+<h2>@Model.Count().ToString() Search Results for "@ViewBag.Term"</h2>
+
+@foreach (var item in Model)
+{
+    <div>
+        <p>
+        <strong>@Html.ActionLink(item.Title, "Details", new { id=item.Id })</strong><br/>
+        <strong><em>@Html.DisplayFor(modelItem => item.Source)</em></strong><br/>
+        @Html.Raw(item.ArticleBodySnippet)
+        </p>
+    </div>
+}

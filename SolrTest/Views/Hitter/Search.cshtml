@@ -1,0 +1,40 @@
+﻿@model SolrTest.Models.HitterSearch
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search for Awesome Hitters</h2>
+
+@using (Html.BeginForm("Search", "Hitter", FormMethod.Post))
+{
+    <div>
+        <label>Year Span:</label>
+        <select name="YearStart">
+            @for (int i = 1950; i < 2013; i++)
+            {
+                <option value="@i">@i</option>
+            }
+        </select> to 
+        <select name="YearEnd">
+            @for (int i = 1950; i < 2013; i++)
+            {
+                <option value="@i">@i</option>
+            }
+        </select>
+    </div>
+
+    <div>
+        <label>Max Salary:</label>
+        <input type="text" name="MaxSalary" />
+    </div>
+
+    <div>
+        <label>Min Home Runs:</label>
+        <input type="text" name="MinHomeRuns" />
+    </div>
+    
+    <div>
+        <button type="submit">Search!</button>
+    </div>
+}

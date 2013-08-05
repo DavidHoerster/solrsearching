@@ -1,0 +1,130 @@
+﻿@model SolrTest.Models.HitterSearchViewModel
+
+@{
+    ViewBag.Title = "Results";
+}
+
+<h2>Results</h2>
+
+<fieldset>
+    <legend>Original Criteria</legend>
+    From @Model.OriginalCriteria.YearStart to @Model.OriginalCriteria.YearEnd<br />
+    Min HomeRuns of @Model.OriginalCriteria.MinHomeRuns<br />
+    Max Salary of @Model.OriginalCriteria.MaxSalary<br /><br />
+    Showing @Model.RecordsShown of @Model.NumberFound
+</fieldset>
+
+@using (Html.BeginForm("FacetSearch", "Hitter", FormMethod.Post, new {name="facetForm"}))
+{
+    <input type="hidden" name="MaxSalary" value="@Model.OriginalCriteria.MaxSalary" />
+    <input type="hidden" name="MinHomeRuns" value="@Model.OriginalCriteria.MinHomeRuns" />
+    <input type="hidden" name="YearEnd" value="@Model.OriginalCriteria.YearEnd" />
+    <input type="hidden" name="YearStart" value="@Model.OriginalCriteria.YearStart" />
+    <input type="hidden" name="criteria" />
+    <input type="hidden" name="field" />
+}
+<div style="width:25%;display:inline-block;float:left;">
+    @foreach (var category in Model.Categories)
+    {
+        <p>
+        <strong>@category.Key</strong><br />
+        @foreach (var item in category.Value.Items)
+	    {
+            <span>@item.Item (<a href="#" onclick="javascript:submitFormWithCriteria('@category.Key','@item.ItemCriteria');">@item.Count</a>)</span><br />
+	    }
+        </p>
+    }
+</div>
+<div style="width:72%;display:inline-block;">
+    <table>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SearchResults[0].Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SearchResults[0].FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SearchResults[0].LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SearchResults[0].TeamName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SearchResults[0].Hits)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SearchResults[0].Doubles)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SearchResults[0].Triples)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SearchResults[0].HomeRuns)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SearchResults[0].RunsBattedIn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SearchResults[0].Average)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SearchResults[0].StrikeOuts)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SearchResults[0].Salary)
+            </th>
+        </tr>
+
+    @foreach (var item in Model.SearchResults) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.ActionLink(item.LastName, "Details", new { id=item.Id })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeamName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hits)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Doubles)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Triples)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HomeRuns)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RunsBattedIn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Average)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StrikeOuts)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Salary)
+            </td>
+        </tr>
+    }
+
+    </table>
+</div>
+
+<script>
+    function submitFormWithCriteria(field, criteria) {
+        document.facetForm.criteria.value = criteria;
+        document.facetForm.field.value = field;
+
+        document.facetForm.submit();
+    }
+</script>
