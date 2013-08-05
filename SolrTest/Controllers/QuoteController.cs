@@ -163,11 +163,6 @@ namespace SolrTest.Controllers
                     UsePhraseHighlighter = true
                     //, AlternateField = "source"
                 }
-                //,
-                ////enable the dismax parser instead of the standard parser
-                //ExtraParams = new Dictionary<string, string> {
-                //    {"deftype", "dismax"}
-                //}
             };
 
             //issue the query
