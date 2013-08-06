@@ -124,7 +124,7 @@ namespace SolrTest.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult Delete(String id)
         {
             try
