@@ -21,7 +21,7 @@ namespace SolrTest.Controllers
 
         public ActionResult Index()
         {
-            var quotes = _solr.Query(new SolrQuery("*:*"));
+            var quotes = _solr.Query(new SolrQuery("*:*"));     //SolrQuery.All == "*.*"
             var trimmedQuotes = quotes.Select(q => new Quote
             {
                 Abstract = q.Abstract,
@@ -80,6 +80,8 @@ namespace SolrTest.Controllers
             return View(new QuoteDetail());
         }
 
+
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
@@ -101,6 +103,8 @@ namespace SolrTest.Controllers
             }
         }
 
+
+        [HttpGet]
         public ActionResult Edit(String id)
         {
             var quotes = _solr.Query(new SolrQuery("id:" + id));
@@ -123,6 +127,7 @@ namespace SolrTest.Controllers
                 return View();
             }
         }
+
 
         [HttpGet]
         public ActionResult Delete(String id)
