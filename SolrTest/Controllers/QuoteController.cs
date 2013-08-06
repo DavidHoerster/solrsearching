@@ -148,7 +148,7 @@ namespace SolrTest.Controllers
             var options = new QueryOptions()
             {
                 //I don't need all the fields returned
-                Fields = new[] { "id", "title", "source" },
+                Fields = new[] { "id", "title", "source", "score" },
                 //enable hit highlighting
                 Highlight = new HighlightingParameters()
                 {
@@ -178,7 +178,8 @@ namespace SolrTest.Controllers
                 {
                     Id = results[i].Id,
                     Title = results[i].Title,
-                    Source = results[i].Source
+                    Source = results[i].Source,
+                    Score = results[i].Score
                 };
 
                 //highlights are a separate array, and can be an array of hits...

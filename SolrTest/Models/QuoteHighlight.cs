@@ -11,5 +11,6 @@ namespace SolrTest.Models
         public String Title { get; set; }
         public String ArticleBodySnippet { get; set; }
         public String Source { get; set; }
+        public Double Score { get; set; }
     }
 }

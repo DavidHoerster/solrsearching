@@ -21,5 +21,7 @@ namespace SolrTest.Models
         public String Abstract { get; set; }
         [SolrField("source")]
         public String Source { get; set; }
+        [SolrField("score")]
+        public Double Score { get; set; }
     }
 }
