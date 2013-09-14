@@ -21,11 +21,23 @@ namespace SolrTest.Controllers
 
         public ActionResult Index()
         {
+            #region sort order stuff
+            /*
+            var options = new QueryOptions()
+            {
+                OrderBy = new[] {
+                    new SortOrder("year", Order.DESC)
+                }
+            };
+            */
+            #endregion
+
             var quotes = _solr.Query(new SolrQuery("*:*"));     //SolrQuery.All == "*.*"
+
             var trimmedQuotes = quotes.Select(q => new Quote
             {
                 Abstract = q.Abstract,
-                ArticleBody = q.ArticleBody.Substring(0,200),
+                ArticleBody = q.ArticleBody.Length < 200 ? q.ArticleBody : q.ArticleBody.Substring(0, 200),
                 Id = q.Id,
                 Source = q.Source,
                 Title = q.Title,
@@ -116,7 +128,6 @@ namespace SolrTest.Controllers
         {
             try
             {
-                // TODO: Add update logic here
                 _solr.Add(theQuote);
                 _solr.Commit();
                 _solr.Optimize();
@@ -184,7 +195,7 @@ namespace SolrTest.Controllers
                     Id = results[i].Id,
                     Title = results[i].Title,
                     Source = results[i].Source,
-                    Score = results[i].Score
+                    Score = results[i].Score.Value
                 };
 
                 //highlights are a separate array, and can be an array of hits...

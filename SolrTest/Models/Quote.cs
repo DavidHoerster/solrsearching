@@ -8,7 +8,6 @@ namespace SolrTest.Models
 {
     public class Quote
     {
-        [SolrField("id")]
         [SolrUniqueKey("id")]
         public String Id { get; set; }
         [SolrField("title")]
@@ -22,6 +21,6 @@ namespace SolrTest.Models
         [SolrField("source")]
         public String Source { get; set; }
         [SolrField("score")]
-        public Double Score { get; set; }
+        public Double? Score { get; set; }
     }
 }
